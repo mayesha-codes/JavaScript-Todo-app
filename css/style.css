@@ -1,0 +1,367 @@
+/* ==========================================================================
+   Tokens
+   ========================================================================== */
+:root {
+  --paper:        #FAF7EF;
+  --paper-line:   #E4DCC6;
+  --ink:          #22283A;
+  --ink-soft:     #6B7280;
+  --rule:         #B4423C;
+  --done:         #3F6659;
+  --done-bg:      #E8EFEA;
+  --edit-bg:      #FFF7E0;
+
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
+
+  --radius: 3px;
+  --gutter: 56px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 64px 20px;
+  background: #EDE7D8;
+  background-image:
+    linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0) 200px);
+  font-family: var(--font-mono);
+  color: var(--ink);
+}
+
+/* ==========================================================================
+   Ledger sheet
+   ========================================================================== */
+.ledger {
+  width: 100%;
+  max-width: 620px;
+  background: var(--paper);
+  border-radius: var(--radius);
+  padding: 40px var(--gutter) 32px 76px;
+  position: relative;
+  box-shadow:
+    0 1px 2px rgba(34, 40, 58, 0.06),
+    0 20px 40px -20px rgba(34, 40, 58, 0.25);
+
+  /* ruled notebook lines */
+  background-image:
+    linear-gradient(var(--paper-line) 1px, transparent 1px);
+  background-size: 100% 44px;
+  background-position: 0 168px;
+  background-repeat: repeat-y;
+}
+
+/* red margin rule — the signature element */
+.ledger::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 48px;
+  width: 1px;
+  background: var(--rule);
+  opacity: 0.55;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+.ledger__header {
+  margin-bottom: 28px;
+}
+
+.ledger__eyebrow {
+  margin: 0 0 4px;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rule);
+  font-weight: 500;
+}
+
+.ledger__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-size: 42px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.ledger__count {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+.ledger__count span {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Add row
+   ========================================================================== */
+.add-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.add-row__input {
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid var(--paper-line);
+  background: #fff;
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.add-row__input:focus {
+  border-color: var(--rule);
+}
+
+.add-row__input::placeholder {
+  color: #A8A296;
+}
+
+.add-row__btn {
+  padding: 12px 22px;
+  border: none;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.add-row__btn:hover {
+  background: var(--rule);
+}
+
+.add-row__btn:focus-visible,
+.add-row__input:focus-visible {
+  outline: 2px solid var(--rule);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Task list
+   ========================================================================== */
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 44px;
+  border-bottom: 1px solid transparent; /* rules come from .ledger background */
+}
+
+.task__text {
+  flex: 1;
+  font-size: 15px;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* --- checkbox --- */
+.task__check {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex: none;
+  cursor: pointer;
+}
+
+.task__check input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+
+.task__box {
+  position: absolute;
+  inset: 0;
+  border: 1.5px solid #C7C0AF;
+  border-radius: 4px;
+  background: #fff;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.task__box::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+  transition: opacity 0.1s ease;
+}
+
+.task__check input:checked ~ .task__box {
+  background: var(--done);
+  border-color: var(--done);
+}
+
+.task__check input:checked ~ .task__box::after {
+  opacity: 1;
+}
+
+.task__check input:focus-visible ~ .task__box {
+  outline: 2px solid var(--rule);
+  outline-offset: 2px;
+}
+
+/* --- done state --- */
+.task--done .task__text {
+  color: var(--ink-soft);
+  text-decoration: line-through;
+  text-decoration-color: var(--done);
+  text-decoration-thickness: 1.5px;
+}
+
+/* --- editing state --- */
+.task--editing {
+  background: var(--edit-bg);
+  border-radius: var(--radius);
+  margin: 0 -12px;
+  padding: 0 12px;
+}
+
+.task__edit-input {
+  flex: 1;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #fff;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: var(--ink);
+  outline: none;
+}
+
+/* --- actions --- */
+.task__actions {
+  display: flex;
+  gap: 4px;
+  flex: none;
+}
+
+.icon-btn {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ink-soft);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.icon-btn svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.icon-btn:hover {
+  background: rgba(34, 40, 58, 0.06);
+  color: var(--ink);
+}
+
+.icon-btn--delete:hover {
+  color: var(--rule);
+}
+
+.icon-btn--save:hover {
+  color: var(--done);
+}
+
+.icon-btn:focus-visible {
+  outline: 2px solid var(--rule);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Footnote
+   ========================================================================== */
+.ledger__footnote {
+  margin: 24px 0 0;
+  font-size: 12px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 480px) {
+  :root {
+    --gutter: 24px;
+  }
+
+  .ledger {
+    padding-left: 48px;
+  }
+
+  .ledger::before {
+    left: 28px;
+  }
+
+  .ledger__title {
+    font-size: 34px;
+  }
+
+  .task__text {
+    font-size: 14px;
+  }
+}
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
