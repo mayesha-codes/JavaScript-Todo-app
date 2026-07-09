@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ledger — Todo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+  <div class="ledger">
+
+    <header class="ledger__header">
+      <p class="ledger__eyebrow">Today's Ledger</p>
+      <h1 class="ledger__title">To-Do</h1>
+      <p class="ledger__count"><span>4</span> items &middot; <span>1</span> done</p>
+    </header>
+
+    <form class="add-row" action="#">
+      <input type="text" class="add-row__input" placeholder="Write a new task…" aria-label="New task">
+      <button type="submit" class="add-row__btn">Add</button>
+    </form>
+
+    <ul class="task-list">
+
+      <li class="task task--done">
+        <label class="task__check">
+          <input type="checkbox" checked>
+          <span class="task__box"></span>
+        </label>
+        <span class="task__text">Sketch the weekly grocery list</span>
+        <div class="task__actions">
+          <button class="icon-btn icon-btn--edit" title="Edit" aria-label="Edit task">
+            <svg viewBox="0 0 24 24"><path d="M4 20h4L18.5 9.5a2.1 2.1 0 0 0-3-3L5 17v3Z"/></svg>
+          </button>
+          <button class="icon-btn icon-btn--delete" title="Delete" aria-label="Delete task">
+            <svg viewBox="0 0 24 24"><path d="M6 7h12M9 7V5h6v2M8 7l1 13h6l1-13"/></svg>
+          </button>
+        </div>
+      </li>
+
+      <li class="task">
+        <label class="task__check">
+          <input type="checkbox">
+          <span class="task__box"></span>
+        </label>
+        <span class="task__text">Reply to the client email thread</span>
+        <div class="task__actions">
+          <button class="icon-btn icon-btn--edit" title="Edit" aria-label="Edit task">
+            <svg viewBox="0 0 24 24"><path d="M4 20h4L18.5 9.5a2.1 2.1 0 0 0-3-3L5 17v3Z"/></svg>
+          </button>
+          <button class="icon-btn icon-btn--delete" title="Delete" aria-label="Delete task">
+            <svg viewBox="0 0 24 24"><path d="M6 7h12M9 7V5h6v2M8 7l1 13h6l1-13"/></svg>
+          </button>
+        </div>
+      </li>
+
+      <li class="task task--editing">
+        <label class="task__check">
+          <input type="checkbox">
+          <span class="task__box"></span>
+        </label>
+        <input type="text" class="task__edit-input" value="Book the dentist appointment">
+        <div class="task__actions">
+          <button class="icon-btn icon-btn--save" title="Save" aria-label="Save task">
+            <svg viewBox="0 0 24 24"><path d="M5 12.5 10 17l9-10"/></svg>
+          </button>
+          <button class="icon-btn icon-btn--delete" title="Delete" aria-label="Delete task">
+            <svg viewBox="0 0 24 24"><path d="M6 7h12M9 7V5h6v2M8 7l1 13h6l1-13"/></svg>
+          </button>
+        </div>
+      </li>
+
+      <li class="task">
+        <label class="task__check">
+          <input type="checkbox">
+          <span class="task__box"></span>
+        </label>
+        <span class="task__text">Water the balcony plants</span>
+        <div class="task__actions">
+          <button class="icon-btn icon-btn--edit" title="Edit" aria-label="Edit task">
+            <svg viewBox="0 0 24 24"><path d="M4 20h4L18.5 9.5a2.1 2.1 0 0 0-3-3L5 17v3Z"/></svg>
+          </button>
+          <button class="icon-btn icon-btn--delete" title="Delete" aria-label="Delete task">
+            <svg viewBox="0 0 24 24"><path d="M6 7h12M9 7V5h6v2M8 7l1 13h6l1-13"/></svg>
+          </button>
+        </div>
+      </li>
+
+    </ul>
+
+    <p class="ledger__footnote">Tick a box to mark it done. Use the pencil to edit, the check to save, and the cross to remove a line.</p>
+
+  </div>
+
+</body>
+</html>
