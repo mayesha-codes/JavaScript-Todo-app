@@ -10,6 +10,7 @@
   --done:         #3F6659;
   --done-bg:      #E8EFEA;
   --edit-bg:      #FFF7E0;
+  --error:        #d22017;
 
   --font-display: 'Fraunces', Georgia, serif;
   --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
@@ -364,4 +365,13 @@ body {
   * {
     transition: none !important;
   }
+}
+
+
+/*===============styles added by me======================*/
+
+#error-message{
+  color: var(--error);
+  font-size: 14px;
+  margin-top: 8px;
 }
