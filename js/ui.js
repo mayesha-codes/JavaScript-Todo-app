@@ -1,5 +1,9 @@
 const taskList = document.getElementById("task-list");
 
 export function renderTasks(tasks) {
-  taskList.innerHTML=`<li>${tasks[0].text}</li>`
+  let listItems = "";
+  for (const task of tasks) {
+    listItems += `<li>${task.text}</li>`;
+  }
+  taskList.innerHTML=listItems;
 }
