@@ -1,13 +1,15 @@
-import { createTask } from "./todo.js";
+import { createTask, toggleTaskCompleted } from "./todo.js";
 import { renderTasks } from "./ui.js";
 const addTaskForm = document.getElementById("add-task-form");
 const newTaskInput = document.getElementById("new-task");
 const errorMessage = document.getElementById("error-message");
+const taskList=document.getElementById("task-list");
 
 
 const tasks = [];
 
 addTaskForm.addEventListener("submit", handleAddTask);
+taskList.addEventListener("change", handleTaskCompletion);
 
 
 function handleAddTask(event){
@@ -21,8 +23,15 @@ function handleAddTask(event){
     }
 
     errorMessage.textContent = "";
+    
     const task = createTask(newTask);
     tasks.push(task);
     newTaskInput.value = "";
     renderTasks(tasks);
+}
+
+function handleTaskCompletion(event) {
+   const taskId=Number(event.target.dataset.taskId);
+   toggleTaskCompleted(taskId, tasks);
+   console.log(tasks);
 }
