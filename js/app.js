@@ -1,4 +1,4 @@
-import { createTask, toggleTaskCompleted } from "./todo.js";
+import { createTask, toggleTaskCompleted, deleteTask} from "./todo.js";
 import { renderTasks } from "./ui.js";
 const addTaskForm = document.getElementById("add-task-form");
 const newTaskInput = document.getElementById("new-task");
@@ -10,8 +10,9 @@ const tasks = [];
 
 addTaskForm.addEventListener("submit", handleAddTask);
 taskList.addEventListener("change", handleTaskCompletion);
+taskList.addEventListener("click", handleTaskActions);
 
-
+// Function to handle adding a new task
 function handleAddTask(event){
     event.preventDefault();
     // Reading the input value here
@@ -30,8 +31,21 @@ function handleAddTask(event){
     renderTasks(tasks);
 }
 
+// Function to handle task completion toggle
 function handleTaskCompletion(event) {
    const taskId=Number(event.target.dataset.taskId);
    toggleTaskCompleted(taskId, tasks);
-   console.log(tasks);
+   renderTasks(tasks);
+}
+
+// Function to handle task deletion
+function handleTaskActions(event) {
+    const action = event.target.dataset.action;
+    if (action !== "delete"){
+    return;
+    }
+    const taskId=Number(event.target.dataset.taskId);
+    console.log(`Delete task with ID: ${taskId}`);
+    deleteTask(taskId, tasks);
+    renderTasks(tasks); 
 }
