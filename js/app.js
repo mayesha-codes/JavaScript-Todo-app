@@ -7,6 +7,7 @@ const taskList=document.getElementById("task-list");
 
 
 const tasks = [];
+let editingTaskId = null;
 
 addTaskForm.addEventListener("submit", handleAddTask);
 taskList.addEventListener("change", handleTaskCompletion);
@@ -28,24 +29,27 @@ function handleAddTask(event){
     const task = createTask(newTask);
     tasks.push(task);
     newTaskInput.value = "";
-    renderTasks(tasks);
+    renderTasks(tasks, editingTaskId);
 }
 
 // Function to handle task completion toggle
 function handleTaskCompletion(event) {
    const taskId=Number(event.target.dataset.taskId);
    toggleTaskCompleted(taskId, tasks);
-   renderTasks(tasks);
+   renderTasks(tasks, editingTaskId);
 }
 
 // Function to handle task deletion
 function handleTaskActions(event) {
     const action = event.target.dataset.action;
-    if (action !== "delete"){
-    return;
-    }
     const taskId=Number(event.target.dataset.taskId);
-    console.log(`Delete task with ID: ${taskId}`);
-    deleteTask(taskId, tasks);
-    renderTasks(tasks); 
+    if (action === "edit"){
+        editingTaskId = taskId;
+        renderTasks(tasks, editingTaskId);
+    }else if(action === "delete"){
+        console.log(`Delete task with ID: ${taskId}`);
+        deleteTask(taskId, tasks);
+        renderTasks(tasks, editingTaskId); 
+    }
+    
 }

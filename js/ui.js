@@ -1,6 +1,13 @@
 const taskList = document.getElementById("task-list");
 
-function renderTask(task) {
+function renderTask(task, editingTaskId) {
+  const isEditing = task.id === editingTaskId;
+  console.log(`Rendering task with ID: ${task.id}, isEditing: ${isEditing}`);
+  if(isEditing){
+    return `<li class="task task--editing">
+              Editing...
+            </li>`;
+  }
   return `<li class="task">
              <label class="task__check">
                  <input type="checkbox"  data-task-id="${task.id}" ${task.completed ? "checked" : ""}>
@@ -16,10 +23,10 @@ function renderTask(task) {
          </li>`;
 }
 
-export function renderTasks(tasks) {
+export function renderTasks(tasks, editingTaskId) {
   let listItems = "";
   for (const task of tasks) {
-    listItems += renderTask(task);
+    listItems += renderTask(task, editingTaskId);
     
   }
   taskList.innerHTML=listItems;

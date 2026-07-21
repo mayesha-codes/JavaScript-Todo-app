@@ -21,6 +21,8 @@ export function toggleTaskCompleted(taskid,tasks){
 // Function to delete a task from the tasks array
 export function deleteTask(taskId, tasks){
     const index =tasks.findIndex(task=>task.id===taskId);
-    console.log("the index:",index);
+    if (index === -1) {
+    return;
+    }
     tasks.splice(index,1);
 }
