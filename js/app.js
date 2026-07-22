@@ -34,9 +34,13 @@ function handleAddTask(event){
 
 // Function to handle task completion toggle
 function handleTaskCompletion(event) {
+   const targetType = event.target.type;
    const taskId=Number(event.target.dataset.taskId);
-   toggleTaskCompleted(taskId, tasks);
-   renderTasks(tasks, editingTaskId);
+   console.log(`Event target type: ${targetType}`);
+   if(targetType === "checkbox"){
+        toggleTaskCompleted(taskId, tasks);
+        renderTasks(tasks, editingTaskId);
+    }
 }
 
 // Function to handle task deletion
@@ -47,9 +51,7 @@ function handleTaskActions(event) {
         editingTaskId = taskId;
         renderTasks(tasks, editingTaskId);
     }else if(action === "delete"){
-        console.log(`Delete task with ID: ${taskId}`);
         deleteTask(taskId, tasks);
         renderTasks(tasks, editingTaskId); 
     }
-    
 }

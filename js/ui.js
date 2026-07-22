@@ -2,10 +2,22 @@ const taskList = document.getElementById("task-list");
 
 function renderTask(task, editingTaskId) {
   const isEditing = task.id === editingTaskId;
-  console.log(`Rendering task with ID: ${task.id}, isEditing: ${isEditing}`);
+  
   if(isEditing){
     return `<li class="task task--editing">
-              Editing...
+              <label class="task__check">
+                 <input type="checkbox"  data-task-id="${task.id}" ${task.completed ? "checked" : ""}>
+                 <span class="task__box"></span>
+             </label>
+
+             
+            <input type="text" class="task__edit-input" value="${task.text}" data-task-id="${task.id}">
+             
+
+             <div class="task__actions">
+                 <button class="icon-btn">Cancel</button>
+                 <button class="icon-btn">Save</button>
+             </div>
             </li>`;
   }
   return `<li class="task">
