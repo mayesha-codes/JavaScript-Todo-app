@@ -9,14 +9,15 @@ function renderTask(task, editingTaskId) {
                  <input type="checkbox"  data-task-id="${task.id}" ${task.completed ? "checked" : ""}>
                  <span class="task__box"></span>
              </label>
-
-             
-            <input type="text" class="task__edit-input" value="${task.text}" data-task-id="${task.id}">
-             
-
+            
+            <div class="task__edit">
+                  <input type="text" id="edit-task"       class="task__edit-input" value="${task.text}"       data-task-id="${task.id}">
+                  <p id="error-message-edit"      class="error-message-edit"></p>
+            </div>
+            
              <div class="task__actions">
-                 <button class="icon-btn">Cancel</button>
-                 <button class="icon-btn">Save</button>
+                 <button class="icon-btn" data-action="cancel" data-task-id="${task.id}">Cancel</button>
+                 <button class="icon-btn" data-action="save" data-task-id="${task.id}">Save</button>
              </div>
             </li>`;
   }

@@ -26,3 +26,12 @@ export function deleteTask(taskId, tasks){
     }
     tasks.splice(index,1);
 }
+
+// Function to update the text of a task
+export function updateTask(editingTaskId, updatedText, tasks) {
+    const task = tasks.find(task => task.id === editingTaskId);
+    if (task) {
+        task.text = updatedText;
+    }
+
+}
